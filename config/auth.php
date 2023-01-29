@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'api' => [
+            'driver' => 'passport',
+            'provider' => 'users',
+        ],
     ],
 
     /*
@@ -65,10 +69,10 @@ return [
             'model' => App\Models\User::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+//         'users' => [
+//             'driver' => 'database',
+//             'table' => 'applicant',
+//         ],
     ],
 
     /*
@@ -107,5 +111,9 @@ return [
     */
 
     'password_timeout' => 10800,
+
+    'app_url' => env('APP_URL', 'http://127.0.0.1:8000'),
+    'client_id' => env('APP_ID'),
+    'client_secret' => env('APP_SECRET'),
 
 ];
