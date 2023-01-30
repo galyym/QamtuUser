@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Events\CallVerification;
 use App\Events\EmailVerificationCode;
 use App\Events\PhoneVerificationCode;
+use App\Listeners\CallVerificationCodeListener;
 use App\Listeners\EmailVerificationCodeListener;
 use App\Listeners\PhoneVerificationCodeListerner;
 use Illuminate\Auth\Events\Registered;
@@ -30,6 +32,10 @@ class EventServiceProvider extends ServiceProvider
         PhoneVerificationCode::class => [
             PhoneVerificationCodeListerner::class,
         ],
+
+        CallVerification::class => [
+            CallVerificationCodeListener::class
+        ]
     ];
 
     /**

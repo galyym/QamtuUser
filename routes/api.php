@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\PhoneController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Announce\AnnounceController;
+use App\Http\Controllers\Profile\ProfileController;
 
 Route::get("git/update", function (){
     shell_exec('/usr/local/cpanel/3rdparty/lib/path-bin/git pull origin master > /dev/null');
@@ -34,7 +35,7 @@ Route::middleware("json.response")->group(function (){
             });
 
             Route::group(['prefix' => 'profile'],function (){
-                Route::get('', [ProfileController::class, "getProfile"]);
+                Route::get('user', [ProfileController::class, "getProfile"]);
             });
 
             Route::get("test", function(){

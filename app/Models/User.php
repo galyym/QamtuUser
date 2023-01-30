@@ -59,4 +59,10 @@ class User extends Authenticatable
         $class->setTable("rb_privileges");
         return $this->belongsTo($class, 'privilege_id');
     }
+
+    public function position(){
+        $class = new RbModel();
+        $class->setTable("rb_privileges");
+        return $this->belongsTo($class, 'privilege_id');
+    }
 }

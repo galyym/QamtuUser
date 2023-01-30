@@ -28,7 +28,7 @@ class PhoneService
 
         // Check if phone number has been recently sent a code
         $last_sent = Redis::get("verification_code_sent:".$request->phone);
-//        if ($last_sent) {
+//debug        if ($last_sent) {
 //            $time_since_last_sent = time() - $last_sent;
 //            if ($time_since_last_sent < 180) { // 180 seconds = 3 minutes
 ////                Redis::setex("verification_code:".$request->phone, 500, $verification_code);
@@ -60,7 +60,7 @@ class PhoneService
 //        }
 
         Redis::setex("verification_code:".$request->phone, 5000, $verification_code);
-//        Redis::setex("verification_code:".$request->phone, 500, $verification_code);
+//debug        Redis::setex("verification_code:".$request->phone, 500, $verification_code);
         Redis::setex("verification_code_sent:".$request->phone, 10800, time());
 
         event(new PhoneVerificationCode($verification_code, $request->phone));
@@ -80,7 +80,7 @@ class PhoneService
         }
 
         $user = User::where('phone_number', $request->phone)->first();
-//        Redis::del("verification_code:".$request->phone);
+//debug        Redis::del("verification_code:".$request->phone);
 
         return $this->authService->token($user);
     }
