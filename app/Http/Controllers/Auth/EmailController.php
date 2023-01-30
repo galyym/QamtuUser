@@ -23,7 +23,7 @@ class EmailController extends Controller
     public function verifyCode(Request $request){
 
         $request->validate([
-            'verification_code' => 'required|numeric|digits:5',
+            'verification_code' => 'required|numeric|digits:4',
             'email' => 'required|string|email'
         ]);
 

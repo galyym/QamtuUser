@@ -32,6 +32,5 @@ class EmailVerificationCodeListener
                 ->from($event->email, "Askar")
                 ->subject($event->verification_code);
         });
-        \Log::info("email", [$event->verification_code]);
     }
 }

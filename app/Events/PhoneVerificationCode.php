@@ -14,14 +14,18 @@ class PhoneVerificationCode
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    public $verification_code;
+    public $phone;
+
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($verification_code, $phone)
     {
-        //
+        $this->verification_code = $verification_code;
+        $this->phone = $phone;
     }
 
     /**

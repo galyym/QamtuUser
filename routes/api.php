@@ -13,14 +13,16 @@ Route::get("git/update", function (){
 });
 
 Route::middleware("json.response")->group(function (){
-    Route::post("login/email", [EmailController::class, "login"]);
-    Route::post("login/phone", [PhoneController::class, "login"]);
 
-    Route::post("login/email/verify", [EmailController::class, "verifyCode"]);
-    Route::post("login/phone/verify", [PhoneController::class, "verifyCode"]);
-    Route::post("refresh", [AuthController::class, 'refreshToken']);
+    Route::group(['prefix' => '{lang?}', 'where' => ['lang' => 'kk|ru']], function (){
 
-    Route::group(['prefix' => '{lang?}', 'where' => ['lang' => 'kk|en|ru']], function (){
+        Route::post("login/email", [EmailController::class, "login"]);
+        Route::post("login/phone", [PhoneController::class, "login"]);
+
+        Route::post("login/email/verify", [EmailController::class, "verifyCode"]);
+        Route::post("login/phone/verify", [PhoneController::class, "verifyCode"]);
+        Route::post("refresh", [AuthController::class, 'refreshToken']);
+
         Route::middleware("auth:api")->group(function(){
             Route::group(['prefix' => 'main'],function (){
                 Route::get("user/status", [UserController::class, "getUserLog"]);
@@ -31,11 +33,18 @@ Route::middleware("json.response")->group(function (){
                 Route::get("list/{id}", [AnnounceController::class, "getAnnounceById"]);
             });
 
+            Route::group(['prefix' => 'profile'],function (){
+                Route::get('', [ProfileController::class, "getProfile"]);
+            });
+
             Route::get("test", function(){
                 dd("test");
             });
         });
     });
+//
+//    Route::get("user/status", [UserController::class, "getUserLog"]);
+
 });
 
 

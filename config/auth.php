@@ -116,4 +116,6 @@ return [
     'client_id' => env('APP_ID'),
     'client_secret' => env('APP_SECRET'),
 
+    'smsc_login' => env('SMSC_LOGIN'),
+    'smsc_password' => env('SMSC_PASSWORD'),
 ];

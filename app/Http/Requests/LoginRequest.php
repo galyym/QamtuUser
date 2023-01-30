@@ -25,11 +25,9 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-//            "email" => "required_without_all:phone|email",
             "email" => "required_without_all:phone|email|exists:applicant,email",
-//            "phone" => "required_without_all:email|numeric",
             "phone" => "required_without_all:email|numeric|exists:applicant,phone_number",
-            "password" => "required",
+            "iin" => "required|numeric|exists:applicant,iin|min:12",
         ];
     }
 }
