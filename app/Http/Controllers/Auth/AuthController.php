@@ -42,7 +42,7 @@ class AuthController extends Controller
                 Redis::setex("verification_code:".$request->iin, 5000, $verification_code);
 
                 Http::withHeaders([
-                    "Authorization" => config("auth.firebase_token"),
+                    "Authorization" => 'key='.config("auth.firebase_token"),
                     "Content-Type" => "application/json",
                 ])->post('https://fcm.googleapis.com/fcm/send', [
                     "to" => $request->firebase_token,
