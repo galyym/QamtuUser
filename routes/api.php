@@ -19,6 +19,7 @@ Route::middleware("json.response")->group(function (){
 
         Route::post("login/email", [EmailController::class, "login"]);
         Route::post("login/phone", [PhoneController::class, "login"]);
+        Route::post("login/notify", [AuthController::class, "login"]);
 
         Route::post("login/email/verify", [EmailController::class, "verifyCode"]);
         Route::post("login/phone/verify", [PhoneController::class, "verifyCode"]);
