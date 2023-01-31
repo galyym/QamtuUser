@@ -118,4 +118,5 @@ return [
 
     'smsc_login' => env('SMSC_LOGIN'),
     'smsc_password' => env('SMSC_PASSWORD'),
+    "firebase_token" => env('FIREBASE_TOKEN'),
 ];

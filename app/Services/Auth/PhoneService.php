@@ -75,7 +75,6 @@ class PhoneService
         $verification_code = Redis::get("verification_code:".$request->phone);
 
         if ($verification_code != $request->verification_code) {
-
             return $this->response->error('Invalid verification code', [], 400);
         }
 

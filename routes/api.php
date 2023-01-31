@@ -19,10 +19,12 @@ Route::middleware("json.response")->group(function (){
 
         Route::post("login/email", [EmailController::class, "login"]);
         Route::post("login/phone", [PhoneController::class, "login"]);
-        Route::post("login/notify", [AuthController::class, "login"]);
+        Route::post("login/notify", [AuthController::class, "login"]); // temp
 
         Route::post("login/email/verify", [EmailController::class, "verifyCode"]);
         Route::post("login/phone/verify", [PhoneController::class, "verifyCode"]);
+        Route::post("login/notify/verify", [AuthController::class, "verifyCode"]); // temp
+
         Route::post("refresh", [AuthController::class, 'refreshToken']);
 
         Route::middleware("auth:api")->group(function(){
