@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Reference\RbPosition;
+use App\Models\Reference\RbPrivilege;
+use App\Models\Reference\RbStatus;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -49,20 +52,15 @@ class User extends Authenticatable
     protected $table = "applicant";
 
     public function status(){
-        $class = new RbModel();
-        $class->setTable("rb_applicant_statuses");
-        return $this->belongsTo($class, 'status_id');
+        return $this->belongsTo(RbStatus::class, 'status_id');
     }
 
     public function privilege(){
-        $class = new RbModel();
-        $class->setTable("rb_privileges");
-        return $this->belongsTo($class, 'privilege_id');
+        return $this->belongsTo(RbPrivilege::class, 'privilege_id');
     }
 
-    public function position(){
-        $class = new RbModel();
-        $class->setTable("rb_privileges");
-        return $this->belongsTo($class, 'privilege_id');
+    public function position()
+    {
+        return $this->belongsToMany(RbPosition::class, 'privilege_id');
     }
 }

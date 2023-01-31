@@ -5,7 +5,7 @@ namespace App\Http\Resources\Announce;
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class AnnounceResource extends JsonResource
+class AnnouncesResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -19,7 +19,8 @@ class AnnounceResource extends JsonResource
             "id" => $this->id,
             "title" => $this->title,
             "anons" => $this->anons,
-            "created_at" => Carbon::parse($this->created_at)->toDateTimeString(),
+            "image" => "https://static.tudointeressante.com.br/uploads/2015/06/animais-fotogenicos-2.jpg",
+            "created_at" => Carbon::parse($this->created_at)->toDateString()
         ];
     }
 }

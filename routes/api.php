@@ -27,15 +27,16 @@ Route::middleware("json.response")->group(function (){
 
         Route::post("refresh", [AuthController::class, 'refreshToken']);
 
+        Route::group(['prefix' => 'announce'],function (){
+            Route::get("list", [AnnounceController::class, "getAnnounceList"]);
+            Route::get("list/{id}", [AnnounceController::class, "getAnnounceById"]);
+        });
+
         Route::middleware("auth:api")->group(function(){
             Route::group(['prefix' => 'main'],function (){
                 Route::get("user/status", [UserController::class, "getUserLog"]);
             });
 
-            Route::group(['prefix' => 'announce'],function (){
-                Route::get("list", [AnnounceController::class, "getAnnounceList"]);
-                Route::get("list/{id}", [AnnounceController::class, "getAnnounceById"]);
-            });
 
             Route::group(['prefix' => 'profile'],function (){
                 Route::get('user', [ProfileController::class, "getProfile"]);

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Announce;
 
 use App\Http\Controllers\Controller;
-use App\Services\Announce\AnnounceService;
+use App\Services\Announce\AnnouncesResource;
 use Illuminate\Http\Request;
 use App\Services\Announce\AnnounceService as Service;
 use Illuminate\Support\Facades\Auth;
@@ -12,7 +12,7 @@ class AnnounceController extends Controller
 {
     protected $service;
 
-    public function __construct(AnnounceService $service){
+    public function __construct(Service $service){
         $this->service = $service;
     }
 
