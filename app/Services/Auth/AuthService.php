@@ -52,6 +52,13 @@ class AuthService
         $http = new Client();
         $client = DB::table('oauth_clients')->select('id', 'secret')->where('id', '=', 2)->first();
 
+        dd([
+        'grant_type'    => 'refresh_token',
+        'refresh_token' => $refreshToken,
+        'client_id'     => intval($client->id),
+        'client_secret' => (string)$client->secret
+        ]);
+
 //        try {
             $response = $http->request('POST',config("auth.app_url").'/oauth/token', [
                 'form_params' => [
