@@ -12,7 +12,7 @@ class RangingLog extends Model
     protected $table = "ranging_logs";
 
     public function company(){
-        return $this->hasMany(Company::class, 'bin', 'company_bin');
+        return $this->belongsTo(Company::class, 'company_bin', 'bin');
     }
 
     public function ranging(){

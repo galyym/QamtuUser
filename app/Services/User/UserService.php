@@ -29,7 +29,7 @@ class UserService
             "user" => new ApplicantResource($user),
             "raiting" => $user->raiting_number,
 //            "resume_last_log" => RangingLogResource::collection(RangingLog::where('ranging_logs.ranging_id', RangingResource::where('applicant_id', Auth::id())->value('id'))->with(['ranging', 'company', 'status'])->get())
-            "history" => $log
+            "history" => RangingLogResource::collection($log)
         ];
 
         return $this->response->success('success', $data);

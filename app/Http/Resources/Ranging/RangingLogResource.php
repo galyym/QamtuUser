@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources\Ranging;
 
+use App\Http\Resources\Company\CompanyResource;
+use App\Http\Resources\Reference\StatusResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class RangingLogResource extends JsonResource
@@ -16,7 +18,10 @@ class RangingLogResource extends JsonResource
     {
 
         return [
-            "admin_full_name" => $this->admin_full_name
+            "admin_full_name" => $this->admin_full_name,
+            'ranging' => new RangingResource($this->ranging),
+            'company' => new CompanyResource($this->company),
+            'status' => new StatusResource($this->status)
         ];
     }
 }

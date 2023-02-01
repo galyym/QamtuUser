@@ -33,7 +33,7 @@ class ProfileService
             "position" => $positions["name_kk"],
             "family_status" => "Example",
             "privilege" => $profile["privilege"]["name_kk"],
-
+            "image_url" => 'https://avatars.mds.yandex.net/i?id=f2278dbde793622d022c098dbf4e223255aba647-8340947-images-thumbs&n=13'
         ];
 
 //        return $this->response->success('Profile', ApplicantResource::collection($profile));
