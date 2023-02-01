@@ -23,7 +23,7 @@ class AuthService
     public function token($user){
 
         $http = new Client();
-        $client = DB::table('oauth_clients')->select('id', 'secret')->where('id', '=', 2)->first();
+        $client = DB::table('oauth_clients')->select('id', 'secret')->where('id', '=', 1)->first();
 
         $response = $http->post(config("auth.app_url").'/oauth/token', [
             'form_params' => [
@@ -50,7 +50,7 @@ class AuthService
     public function refreshToken($refreshToken)
     {
         $http = new Client();
-        $client = DB::table('oauth_clients')->select('id', 'secret')->where('id', '=', 2)->first();
+        $client = DB::table('oauth_clients')->select('id', 'secret')->where('id', '=', 1)->first();
 
         try {
             $response = $http->request('POST',config("auth.app_url").'/oauth/token', [
