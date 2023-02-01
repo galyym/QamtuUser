@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Announce\AnnounceController;
 use App\Http\Controllers\Profile\ProfileController;
+use App\Http\Controllers\Auth\EcpController;
 
 Route::get("git/update", function (){
     shell_exec('/usr/local/cpanel/3rdparty/lib/path-bin/git pull origin master > /dev/null');
@@ -20,6 +21,7 @@ Route::middleware("json.response")->group(function (){
         Route::post("login/email", [EmailController::class, "login"]);
         Route::post("login/phone", [PhoneController::class, "login"]);
         Route::post("login/notify", [AuthController::class, "login"]); // temp
+        Route::post("login/ecp", [EcpController::class, "authEcp"]);
 
         Route::post("login/email/verify", [EmailController::class, "verifyCode"]);
         Route::post("login/phone/verify", [PhoneController::class, "verifyCode"]);
@@ -36,7 +38,6 @@ Route::middleware("json.response")->group(function (){
             Route::group(['prefix' => 'main'],function (){
                 Route::get("user/status", [UserController::class, "getUserLog"]);
             });
-
 
             Route::group(['prefix' => 'profile'],function (){
                 Route::get('user', [ProfileController::class, "getProfile"]);
