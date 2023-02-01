@@ -35,9 +35,9 @@ class AuthService
             ]
         ]);
 
-//        if ($response->getStatusCode() === 500){
-//            return $this->response->error('401 Unauthorized', [], 401);
-//        }
+        if ($response->getStatusCode() === 500){
+            return $this->response->error('401 Unauthorized', [], 401);
+        }
         return  json_decode((string) $response->getBody(), true);
     }
 
@@ -52,14 +52,7 @@ class AuthService
         $http = new Client();
         $client = DB::table('oauth_clients')->select('id', 'secret')->where('id', '=', 2)->first();
 
-        dd([
-        'grant_type'    => 'refresh_token',
-        'refresh_token' => $refreshToken,
-        'client_id'     => intval($client->id),
-        'client_secret' => (string)$client->secret
-        ]);
-
-//        try {
+        try {
             $response = $http->request('POST',config("auth.app_url").'/oauth/token', [
                 'form_params' => [
                     'grant_type'    => 'refresh_token',
@@ -70,8 +63,8 @@ class AuthService
             ]);
 
             return json_decode((string) $response->getBody(), true);
-//        }catch (ClientException $e){
-//            return $this->response->error('401 Unauthorized', [], 401);
-//        }
+        }catch (ClientException $e){
+            return $this->response->error('401 Unauthorized', [], 401);
+        }
     }
 }
