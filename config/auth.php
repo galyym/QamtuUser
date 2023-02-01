@@ -113,8 +113,6 @@ return [
     'password_timeout' => 10800,
 
     'app_url' => env('APP_URL', 'http://127.0.0.1:8000'),
-    'client_id' => env('APP_ID'),
-    'client_secret' => env('APP_SECRET'),
 
     'smsc_login' => env('SMSC_LOGIN'),
     'smsc_password' => env('SMSC_PASSWORD'),
