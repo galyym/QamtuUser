@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Ranging;
 
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class RangingResource extends JsonResource
@@ -17,7 +18,7 @@ class RangingResource extends JsonResource
         return [
             "address" => $this->address,
             "interview_date" => $this->interview_date,
-            "interview_time" => $this->interview_time,
+            "interview_time" => Carbon::parse($this->interview_time)->toTimeString(),
             "interview_comment" => $this->interview_comment,
             "order_date" => $this->order_date,
         ];
