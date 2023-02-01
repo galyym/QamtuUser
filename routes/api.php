@@ -32,7 +32,7 @@ Route::middleware("json.response")->group(function (){
             Route::get("list/{id}", [AnnounceController::class, "getAnnounceById"]);
         });
 
-//        Route::middleware("auth:api")->group(function(){
+        Route::middleware("auth:api")->group(function(){
             Route::group(['prefix' => 'main'],function (){
                 Route::get("user/status", [UserController::class, "getUserLog"]);
             });
@@ -45,7 +45,7 @@ Route::middleware("json.response")->group(function (){
             Route::get("test", function(){
                 dd("test");
             });
-//        });
+        });
     });
 //
 //    Route::get("user/status", [UserController::class, "getUserLog"]);
