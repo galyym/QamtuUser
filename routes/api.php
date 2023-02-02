@@ -14,11 +14,13 @@ Route::get("git/update", function (){
     shell_exec('/usr/local/cpanel/3rdparty/lib/path-bin/git pull origin master > /dev/null');
 });
 
-Route::get("checkToken", function (Request $request) {
-    dd($request);
-});
+
 
 Route::middleware("json.response")->group(function (){
+    Route::get("checkToken", function (Request $request) {
+        dd($request);
+    });
+
 
     Route::group(['prefix' => '{lang?}', 'where' => ['lang' => 'kk|ru']], function (){
 
