@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Http\Responders\Responder;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -27,6 +28,12 @@ class AuthController extends Controller
     public function refreshToken(Request $request){
 
         return $this->service->refreshToken($request->refreshToken);
+    }
+
+    public function logout(){
+        $user = Auth::user();
+        $user->token()->revoke();
+        $user->where("id", $user->id)->update(['firebase_token' => null]);
     }
 
     /**

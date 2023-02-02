@@ -37,6 +37,9 @@ Route::middleware("json.response")->group(function (){
         });
 
         Route::middleware("auth:api")->group(function(){
+            // LogOut
+            Route::get("logout", [AuthController::class, "logout"]);
+
             // Басты бет
             Route::group(['prefix' => 'main'],function (){
                 Route::get("user/status", [UserController::class, "getUserLog"]);
@@ -52,6 +55,7 @@ Route::middleware("json.response")->group(function (){
 
             // Push уведомления
             Route::get("notification", [NotificationController::class, "getNotification"]);
+            Route::post("notification", [NotificationController::class, "setNotification"]);
         });
     });
 });
