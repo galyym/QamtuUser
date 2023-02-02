@@ -17,4 +17,8 @@ class UserController extends Controller
     public function getUserLog(){
         return $this->service->getUserLog();
     }
+
+    public function getUserList(){
+        return $this->service->getUserList();
+    }
 }

@@ -10,6 +10,7 @@ use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\Auth\EcpController;
 use App\Http\Controllers\User\LangController;
 use App\Http\Controllers\User\NotificationController;
+use App\Http\Controllers\Test;
 
 Route::get("git/update", function (){
     shell_exec('/usr/local/cpanel/3rdparty/lib/path-bin/git pull origin master > /dev/null');
@@ -56,7 +57,12 @@ Route::middleware("json.response")->group(function (){
             // Push уведомления
             Route::get("notification", [NotificationController::class, "getNotification"]);
             Route::post("notification", [NotificationController::class, "setNotification"]);
+
+            // Test
+            Route::get("test", [Test::class, "test"]);
         });
+
+        Route::get('user/list/without/status', [UserController::class, 'getUserList']);
     });
 });
 

@@ -17,15 +17,15 @@ class ApplicantResource extends JsonResource
     public function toArray($request)
     {
         return [
-            "id" => $this->id,
-            "iin" => (string)$this->iin,
-            "full_name" => $this->full_name,
-            "birthdate" => $this->birthdate,
-            "email" => $this->email,
-            "phone_number" => $this->phone_number,
-            "address" => $this->address,
-            "status" => new StatusResource($this->status),
-            "privilege" => new PrivilegeResource($this->privilege)
+            "id" => $this->id ?? null,
+            "iin" => (string)$this->iin ?? null,
+            "full_name" => $this->full_name ?? null,
+            "birthdate" => $this->birthdate ?? null,
+            "email" => $this->email ?? null,
+            "phone_number" => $this->phone_number ?? null,
+            "address" => $this->address ?? null,
+            "status" => new StatusResource($this->status) ?? null,
+            "privilege" => new PrivilegeResource($this->privilege) ?? null
         ];
     }
 }

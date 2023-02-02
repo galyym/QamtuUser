@@ -16,11 +16,11 @@ class AnnouncesResource extends JsonResource
     public function toArray($request)
     {
         return [
-            "id" => $this->id,
-            "title" => $this->title,
-            "anons" => $this->anons,
-            "image" => "https://static.tudointeressante.com.br/uploads/2015/06/animais-fotogenicos-2.jpg",
-            "created_at" => Carbon::parse($this->created_at)->toDateString()
+            "id" => $this->id ?? null,
+            "title" => $this->title ?? null,
+            "anons" => $this->anons ?? null,
+            "image" => "https://7kun.kz/wp-content/uploads/2019/06/arktika_neft__vid219217e.jpg" ?? null,
+            "created_at" => Carbon::parse($this->created_at)->toDateString() ?? null
         ];
     }
 }

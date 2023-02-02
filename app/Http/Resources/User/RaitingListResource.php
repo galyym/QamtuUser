@@ -4,7 +4,7 @@ namespace App\Http\Resources\User;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class RaitingList extends JsonResource
+class RaitingListResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,8 +15,8 @@ class RaitingList extends JsonResource
     public function toArray($request)
     {
         return [
-            "raiting" => $this->raiting_number,
-            "full_name" => $this->full_name
+            "raiting" => $this->raiting_privilege_number ?? null,
+            "full_name" => $this->full_name ?? null
         ];
     }
 }

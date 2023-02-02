@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Resources\Reference;
+namespace App\Http\Resources\User;
 
+use App\Http\Resources\Reference\PrivilegeResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PrivilegeResource extends JsonResource
+class UserListResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,9 +16,9 @@ class PrivilegeResource extends JsonResource
     public function toArray($request)
     {
         return [
-            "id" => $this->id,
-            "name" => $this->name_kk ?? null,
-            "description" => $this->description_kk ?? null,
+            'full_name' => $this->full_name,
+            'iin' => $this->iin,
+            'privilege' => new PrivilegeResource($this->privilege)
         ];
     }
 }

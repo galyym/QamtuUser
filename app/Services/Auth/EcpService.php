@@ -34,7 +34,7 @@ class EcpService
 
         $user_data = $this->checkEcp($response);
 
-        if ($user_data["status"] == 0) return $this->response->error("error");
+//        if ($user_data["status"] == 0) return $this->response->error("error");
 
         $iin = $user_data["result"]["subject"]["iin"];
         $user = User::where("iin", $iin)->first();

@@ -18,10 +18,10 @@ class RangingLogResource extends JsonResource
     {
 
         return [
-            "admin_full_name" => $this->admin_full_name,
-            'ranging' => new RangingResource($this->ranging),
-            'company' => new CompanyResource($this->company),
-            'status' => new StatusResource($this->status)
+            "admin_full_name" => $this->admin_full_name ?? null,
+            'ranging' => new RangingResource($this->ranging) ?? null,
+            'company' => new CompanyResource($this->company) ?? null,
+            'status' => new StatusResource($this->status) ?? null
         ];
     }
 }
