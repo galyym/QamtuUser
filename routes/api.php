@@ -17,11 +17,6 @@ Route::get("git/update", function (){
 
 
 Route::middleware("json.response")->group(function (){
-    Route::get("checkToken", function (Request $request) {
-        dd($request);
-    });
-
-
     Route::group(['prefix' => '{lang?}', 'where' => ['lang' => 'kk|ru']], function (){
 
         Route::post("login/email", [EmailController::class, "login"]);
