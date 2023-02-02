@@ -18,11 +18,6 @@ class ForceJsonResponse
     {
         $request->headers->set('Accept', 'application/json');
 
-        // Cpanel не пропускает authorization токен поэтому были предприняты такие меры
-        if ($request->hasHeader("X-Auth")){
-            $request->headers->set("authorization", "Bearer ".$request->headers->get("X-Auth"));
-            $request->headers->remove("X-Auth");
-        }
         return $next($request);
     }
 }
