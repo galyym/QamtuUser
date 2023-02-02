@@ -55,8 +55,7 @@ class UserService
     }
 
     public function getUserList(){
-        $data = UserListResource::collection(User::where('status_id', '!=', 4)->with('privilege')->get());
-//        $data = User::where('status_id', '!=', 4)->with('privilege')->get();
+        $data = UserListResource::collection(User::where('status_id', '!=', 4)->orderBy('id', 'asc')->with('privilege')->get());
         return $this->response->success('success', $data);
     }
 

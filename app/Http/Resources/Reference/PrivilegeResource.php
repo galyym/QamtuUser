@@ -15,7 +15,7 @@ class PrivilegeResource extends JsonResource
     public function toArray($request)
     {
         return [
-            "id" => $this->id,
+            "id" => $this->id ?? null,
             "name" => $this->name_kk ?? null,
             "description" => $this->description_kk ?? null,
         ];

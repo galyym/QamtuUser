@@ -16,8 +16,8 @@ class UserListResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'full_name' => $this->full_name,
-            'iin' => $this->iin,
+            'full_name' => $this->full_name ?? null,
+            'iin' => $this->iin ?? null,
             'privilege' => new PrivilegeResource($this->privilege)
         ];
     }
