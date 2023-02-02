@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\EmailController;
 use App\Http\Controllers\Auth\PhoneController;
@@ -9,6 +8,8 @@ use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Announce\AnnounceController;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\Auth\EcpController;
+use App\Http\Controllers\User\LangController;
+use App\Http\Controllers\User\NotificationController;
 
 Route::get("git/update", function (){
     shell_exec('/usr/local/cpanel/3rdparty/lib/path-bin/git pull origin master > /dev/null');
@@ -36,22 +37,23 @@ Route::middleware("json.response")->group(function (){
         });
 
         Route::middleware("auth:api")->group(function(){
+            // Басты бет
             Route::group(['prefix' => 'main'],function (){
                 Route::get("user/status", [UserController::class, "getUserLog"]);
             });
-
+            // Жеке бас ақпараттары
             Route::group(['prefix' => 'profile'],function (){
                 Route::get('user', [ProfileController::class, "getProfile"]);
             });
 
-            Route::get("test", function(){
-                dd("test");
-            });
+            // Смена языка
+            Route::get("lang", [LangController::class, "getLang"]);
+            Route::post("lang", [LangController::class, "setLang"]);
+
+            // Push уведомления
+            Route::get("notification", [NotificationController::class, "getNotification"]);
         });
     });
-//
-//    Route::get("user/status", [UserController::class, "getUserLog"]);
-
 });
 
 
