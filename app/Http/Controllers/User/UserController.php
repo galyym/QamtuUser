@@ -21,4 +21,12 @@ class UserController extends Controller
     public function getUserList(){
         return $this->service->getUserList();
     }
+
+    public function checkApplicant(Request $request){
+        $request->validate([
+            "iin" => 'required|string|size:12'
+        ]);
+
+        return $this->service->checkApplicant($request);
+    }
 }

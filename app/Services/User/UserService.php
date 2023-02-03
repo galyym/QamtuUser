@@ -77,5 +77,8 @@ class UserService
         return $this->response->success('success', $data);
     }
 
+    public function checkApplicant($request){
+        return (bool)User::where("iin", $request->iin)->first();
+    }
 
 }

@@ -60,8 +60,13 @@ Route::middleware("json.response")->group(function (){
 
             // Test
             Route::get("test", [Test::class, "test"]);
+
         });
 
+        // Check applicant
+        Route::get("check/applicant", [UserController::class, 'checkApplicant']);
+
+        // Applicant list without filter
         Route::get('user/list/without/status', [UserController::class, 'getUserList']);
     });
 });
