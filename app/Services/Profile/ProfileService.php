@@ -33,7 +33,7 @@ class ProfileService
             "position" => $positions["name_kk"],
             "family_status" => "Example",
             "privilege" => $profile["privilege"]["name_kk"],
-            "image_url" => 'https://avatars.mds.yandex.net/i?id=f2278dbde793622d022c098dbf4e223255aba647-8340947-images-thumbs&n=13'
+            "image_url" => 'https://webpulse.imgsmail.ru/imgpreview?mb=webpulse&key=pulse_cabinet-image-82558636-9ac1-495f-b4a3-6a6961221aff'
         ];
 
 //        return $this->response->success('Profile', ApplicantResource::collection($profile));
