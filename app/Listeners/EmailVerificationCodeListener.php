@@ -3,6 +3,8 @@
 namespace App\Listeners;
 
 use App\Events\EmailVerificationCode;
+use App\Mail\Auth\EmailVerifyCode;
+use App\Models\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Mail;
@@ -27,10 +29,7 @@ class EmailVerificationCodeListener
      */
     public function handle(EmailVerificationCode $event)
     {
-        Mail::send('welcome', [$event], function ($message) use ($event){
-            $message->to($event->email)
-                ->from($event->email, "Askar")
-                ->subject($event->verification_code);
-        });
+
+        Mail::to($event->email)->send(new EmailVerifyCode($event->verification_code));
     }
 }
