@@ -15,7 +15,7 @@ class RaitingListResource extends JsonResource
     public function toArray($request)
     {
         return [
-            "raiting" => $this->raiting_privilege_number ?? null,
+            "raiting" => $this->raiting_privilege_number ?? $this->raiting_number,
             "full_name" => $this->full_name ?? null
         ];
     }

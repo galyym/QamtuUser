@@ -31,7 +31,7 @@ class UserService
         $data = [
             "user" => new ApplicantResource($user),
             "raiting" => $user->raiting_number,
-            "privilege_raiting" => $user->raiting_privilege_number,
+            "privilege_raiting" => $user->raiting_privilege_number ?? $user->raiting_number,
             "history" => RangingLogResource::collection($log),
             "raiting_number" => $this->getUserQueue($user)
         ];
@@ -41,16 +41,34 @@ class UserService
 
     public function getUserQueue($user){
         $raiting_privilege_number = $user->raiting_privilege_number;
-        $raiting_list = [];
-        if ($raiting_privilege_number < 5 && $raiting_privilege_number > 0){
-            $raiting_list = $user->where('raiting_privilege_number', '<=', intval($raiting_privilege_number)+5, 'and')->where('privilege_id', $user->privilege_id)->get();
+        $raiting_table_name = "raiting_privilege_number";
+
+        // bad logic here TODO::fix here
+        if ($raiting_privilege_number == null){
+            $raiting_number = $user->raiting_number;
+            $raiting_table_name = "raiting_number";
+
+            if ($raiting_number < 5 && $raiting_number > 0){
+                $raiting_list = $user->where($raiting_table_name, '<=', intval($raiting_number)+5, 'and')->get();
+            } else {
+                $raiting_list = $user->where($raiting_table_name, '<=', intval($raiting_number)+5, 'and')
+                    ->where($raiting_table_name, '>=', intval($raiting_number)-5, "and")
+                    ->orderBy($raiting_table_name, 'asc')
+                    ->get();
+            }
         } else {
-            $raiting_list = $user->where('raiting_privilege_number', '<=', intval($raiting_privilege_number)+5, 'and')
-                ->where('raiting_privilege_number', '>=', intval($raiting_privilege_number)-5, "and")
-                ->where('privilege_id', $user->privilege_id)
-                ->orderBy('raiting_privilege_number', 'asc')
-                ->get();
+            if ($raiting_privilege_number < 5 && $raiting_privilege_number > 0){
+                $raiting_list = $user->where($raiting_table_name, '<=', intval($raiting_privilege_number)+5, 'and')->where('privilege_id', $user->privilege_id)->get();
+            } else {
+                $raiting_list = $user->where($raiting_table_name, '<=', intval($raiting_privilege_number)+5, 'and')
+                    ->where($raiting_table_name, '>=', intval($raiting_privilege_number)-5, "and")
+                    ->where('privilege_id', $user->privilege_id)
+                    ->orderBy($raiting_table_name, 'asc')
+                    ->get();
+            }
         }
+
+
         return RaitingListResource::collection($raiting_list);
     }
 
