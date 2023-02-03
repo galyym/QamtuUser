@@ -26,8 +26,7 @@ class ProfileService
 
         $data = [
             "full_name" => $profile["full_name"],
-//            "email" => $profile["email"],
-            "email" => "demo@demo.com",
+            "email" => $profile["email"],
             "phone_number" => $profile["phone_number"],
             "birthdate" => $profile["birthdate"],
             "age" => 45,
