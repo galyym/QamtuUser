@@ -78,7 +78,8 @@ class UserService
     }
 
     public function checkApplicant($request){
-        return (bool)User::where("iin", $request->iin)->first();
+        if (User::where("iin", $request->iin)->first()) return true;
+        return 0;
     }
 
 }
