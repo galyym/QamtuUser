@@ -18,7 +18,7 @@ class Test extends Controller
 
         foreach ($privilege as $p) {
             // получаем список пользователей по privilege_id
-            $applicants = DB::table('applicant')->where("privilege_id", $p)->get()->chunk(500);
+            $applicants = DB::table('applicant')->where("privilege_id", $p)->get();
 
             if ($applicants == []){
                 continue;
