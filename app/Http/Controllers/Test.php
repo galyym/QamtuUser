@@ -25,11 +25,11 @@ class Test extends Controller
             }
 
             foreach ($applicants as $applicant) {
-//                $process = new Process(['php', 'artisan', 'queue:privilege']);
-//                $process->start();
+                $process = new Process(['php', 'artisan', 'queue:privilege']);
+                $process->start();
 
                 $count_raiting = 1;
-//                while ($process->isRunning()) {
+                while ($process->isRunning()) {
                     foreach ($applicant as $a) {
                         // Update applicant's raiting
                         DB::table('applicant')
@@ -37,11 +37,11 @@ class Test extends Controller
                             ->update(['raiting_privilege_number' => $count_raiting]);
                         $count_raiting++;
                     }
-//                    print_r($process->getOutput());
-//                    $process->stop();
+                    print_r($process->getOutput());
+                    $process->stop();
                 print_r("success");
                 }
-//            }
+            }
         }
 
 
