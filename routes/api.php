@@ -58,10 +58,11 @@ Route::middleware("json.response")->group(function (){
             Route::get("notification", [NotificationController::class, "getNotification"]);
             Route::post("notification", [NotificationController::class, "setNotification"]);
 
-            // Test
-            Route::get("test", [Test::class, "test"]);
 
         });
+
+        // Test
+        Route::get("test", [Test::class, "test"]);
 
         // Check applicant
         Route::get("check/applicant", [UserController::class, 'checkApplicant']);
