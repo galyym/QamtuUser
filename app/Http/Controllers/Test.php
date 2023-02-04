@@ -30,13 +30,13 @@ class Test extends Controller
 
                 $count_raiting = 1;
                 while ($process->isRunning()) {
-                    foreach ($applicant as $a) {
+//                    foreach ($applicant as $a) {
                         // Update applicant's raiting
                         DB::table('applicant')
-                            ->where('id', $a->id)
+                            ->where('id', $applicant->id)
                             ->update(['raiting_privilege_number' => $count_raiting]);
                         $count_raiting++;
-                    }
+//                    }
                     print_r($process->getOutput());
                     $process->stop();
                 print_r("success");
