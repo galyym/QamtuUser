@@ -33,7 +33,7 @@ class Test extends Controller
 //                    foreach ($applicant as $a) {
                         // Update applicant's raiting
                         DB::table('applicant')
-                            ->where('id', $applicant->id)
+                            ->where('id', $applicant    ->id)
                             ->update(['raiting_privilege_number' => $count_raiting]);
                         $count_raiting++;
 //                    }

@@ -49,19 +49,26 @@ class UserService
             $raiting_table_name = "raiting_number";
 
             if ($raiting_number < 5 && $raiting_number > 0){
-                $raiting_list = $user->where($raiting_table_name, '<=', intval($raiting_number)+5, 'and')->get();
+                $raiting_list = $user->where($raiting_table_name, '<=', intval($raiting_number)+5, 'and')
+                    ->where('status_id', 1)
+                    ->get();
             } else {
                 $raiting_list = $user->where($raiting_table_name, '<=', intval($raiting_number)+5, 'and')
                     ->where($raiting_table_name, '>=', intval($raiting_number)-5, "and")
+                    ->where('status_id', 1)
                     ->orderBy($raiting_table_name, 'asc')
                     ->get();
             }
         } else {
             if ($raiting_privilege_number < 5 && $raiting_privilege_number > 0){
-                $raiting_list = $user->where($raiting_table_name, '<=', intval($raiting_privilege_number)+5, 'and')->where('privilege_id', $user->privilege_id)->get();
+                $raiting_list = $user->where($raiting_table_name, '<=', intval($raiting_privilege_number)+5, 'and')
+                    ->where('status_id', 1)
+                    ->where('privilege_id', $user->privilege_id)
+                    ->get();
             } else {
                 $raiting_list = $user->where($raiting_table_name, '<=', intval($raiting_privilege_number)+5, 'and')
                     ->where($raiting_table_name, '>=', intval($raiting_privilege_number)-5, "and")
+                    ->where('status_id', 1, 'and')
                     ->where('privilege_id', $user->privilege_id)
                     ->orderBy($raiting_table_name, 'asc')
                     ->get();
