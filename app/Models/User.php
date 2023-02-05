@@ -52,6 +52,12 @@ class User extends Authenticatable
 
     protected $table = "applicant";
 
+//    public function getNameAttribute()
+//    {
+//        $lang = app()->getLocale();
+//        return $this->{"name_$lang"};
+//    }
+
     public function status(){
         return $this->belongsTo(RbStatus::class, 'status_id');
     }

@@ -31,9 +31,9 @@ class ProfileService
             "birthdate" => $profile["birthdate"],
             "age" => 45,
             "position" => $positions["name_kk"],
-            "family_status" => "Example",
+            "family_status" => "белгісіз",
             "privilege" => $profile["privilege"]["name_kk"],
-            "image_url" => 'https://webpulse.imgsmail.ru/imgpreview?mb=webpulse&key=pulse_cabinet-image-82558636-9ac1-495f-b4a3-6a6961221aff'
+            "image_url" => 'https://abrakadabra.fun/uploads/posts/2021-12/1640528638_13-abrakadabra-fun-p-serii-chelovek-na-avu-15.jpg'
         ];
 
 //        return $this->response->success('Profile', ApplicantResource::collection($profile));
