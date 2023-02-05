@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\User;
 
+use App\Http\Resources\Reference\PrivilegeCompressResource;
 use App\Http\Resources\Reference\PrivilegeResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -18,7 +19,7 @@ class UserListResource extends JsonResource
         return [
             'full_name' => $this->full_name ?? null,
             'iin' => $this->iin ?? null,
-            'privilege' => new PrivilegeResource($this->privilege)
+            'privilege' => new PrivilegeCompressResource($this->privilege)
         ];
     }
 }

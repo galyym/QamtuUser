@@ -16,6 +16,7 @@ class PrivilegeResource extends JsonResource
     {
         return [
             "id" => $this->id ?? null,
+            "name" => $this->name_kk ?? null,
             "description" => $this->description_kk ?? null,
         ];
     }

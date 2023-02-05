@@ -82,6 +82,7 @@ class UserService
     public function getUserList(){
         $data = UserListResource::collection(User::where('status_id', '!=', 4)->orderBy('id', 'asc')->with('privilege')->get());
         return $this->response->success('success', $data);
+//        return $this->response->success('success', gzencode($data, $level = -1, $encoding_mode = FORCE_GZIP ));
     }
 
     public function checkApplicant($request){
