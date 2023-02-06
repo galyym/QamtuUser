@@ -25,15 +25,6 @@ class EcpService
         $base64 = $request->base64;
         $password = $request->password;
 
-        $response = [
-            "version" => "1.0",
-            "method" => "PKCS12.info",
-            "params" => [
-                "p12" => $base64,
-                "password" => $password
-            ]
-        ];
-
         $user_data = $this->pki->getCertificateInfo($base64, $password, true);
 
         if ($user_data) {
@@ -45,7 +36,6 @@ class EcpService
             }
             return $this->response->error("Қолданушы табылмады");
         }
-
         return response($user_data);
     }
 }
