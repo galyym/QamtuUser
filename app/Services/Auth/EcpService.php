@@ -34,14 +34,19 @@ class EcpService
 
         $user_data = $this->checkEcp($response);
 
-//        if ($user_data["status"] == 0) return $this->response->error("error");
+        if ($user_data["status"] === 0) {
 
-        $iin = $user_data["result"]["subject"]["iin"];
-        $user = User::where("iin", $iin)->first();
-        if ($user){
-            return $this->service->token($user);
+            $iin = $user_data["result"]["subject"]["iin"];
+            $user = User::where("iin", $iin)->first();
+            if ($user) {
+                return $this->service->token($user);
+            }
+            return $this->response->error("С");
+        } elseif ($user_data["status"] === 3){
+            return $this->response->error("Сіздің құпия сөзіңіз немесе электронды қолтаңбаңыз дұрыс емес");
         }
-        return $this->response->error("error");
+
+        return $this->response->error("Белгісіз қателіктер");
     }
 
     protected function checkEcp($data){
