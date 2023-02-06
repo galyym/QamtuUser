@@ -79,7 +79,7 @@ class PhoneService
         }
 
         $user = User::where('phone_number', $request->phone)->first();
-//debug        Redis::del("verification_code:".$request->phone);
+        Redis::del("verification_code:".$request->phone);
 
         return $this->authService->token($user);
     }
