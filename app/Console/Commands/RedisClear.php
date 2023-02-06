@@ -38,6 +38,7 @@ class RedisClear extends Command
      */
     public function handle()
     {
+        \Log::info("keys", Redis::keys('*'));
         Redis::flushall();
     }
 }
