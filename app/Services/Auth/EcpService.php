@@ -5,17 +5,19 @@ namespace App\Services\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Http;
 use App\Http\Responders\Responder;
-use App\Services\Auth\AuthService;
+use App\Helper\Pki;
 
 class EcpService
 {
 
     protected $response;
     protected $service;
+    protected $pki;
 
-    public function __construct(Responder $response, AuthService $service){
+    public function __construct(Responder $response, AuthService $service, Pki $pki){
         $this->response = $response;
         $this->service = $service;
+        $this->pki = $pki;
     }
 
     public function authEcp($request){
@@ -32,21 +34,19 @@ class EcpService
             ]
         ];
 
-        $user_data = $this->checkEcp($response);
+        $user_data = $this->pki->getCertificateInfo($base64, $password, true);
 
-        if ($user_data["status"] === 0) {
+        if ($user_data) {
 
-            $iin = $user_data["result"]["subject"]["iin"];
-            $user = User::where("iin", $iin)->first();
+            $user = User::where("iin", $user_data["iin"])->first();
+
             if ($user) {
                 return $this->service->token($user);
             }
-            return $this->response->error("С");
-        } elseif ($user_data["status"] === 3){
-            return $this->response->error("Сіздің құпия сөзіңіз немесе электронды қолтаңбаңыз дұрыс емес");
+            return $this->response->error("Қолданушы табылмады");
         }
 
-        return $this->response->error("Белгісіз қателіктер");
+        return response($user_data);
     }
 
     protected function checkEcp($data){

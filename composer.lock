@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2143368c90311baf65e766ed266b29d5",
+    "content-hash": "c63c359ef63febdeb20e97dddba65a35",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2320,6 +2320,43 @@
                 }
             ],
             "time": "2021-06-28T04:27:21+00:00"
+        },
+        {
+            "name": "malikzh/php-ncanode",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/malikzh/php-ncanode.git",
+                "reference": "7e1c0bcb14ad1fa4336effb20ac4e87e7a9a041a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/malikzh/php-ncanode/zipball/7e1c0bcb14ad1fa4336effb20ac4e87e7a9a041a",
+                "reference": "7e1c0bcb14ad1fa4336effb20ac4e87e7a9a041a",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Malikzh\\PhpNCANode\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Malik Zharykov",
+                    "email": "cmalikz.h@gmail.com"
+                }
+            ],
+            "description": "The NCANode PHP client",
+            "support": {
+                "issues": "https://github.com/malikzh/php-ncanode/issues",
+                "source": "https://github.com/malikzh/php-ncanode/tree/master"
+            },
+            "time": "2018-10-24T07:54:54+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -8957,7 +8994,8 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.3|^8.0"
+        "php": "^7.3|^8.0",
+        "ext-json": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "2.2.0"
