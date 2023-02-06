@@ -30,7 +30,7 @@ class AuthService
                 'grant_type'    => 'password',
                 'client_id'     => intval($client->id),
                 'client_secret' => (string)$client->secret,
-                'username'      => (string)$user->email,
+                'username'      => (string)$user->full_name,
                 'password'      => '123'
             ]
         ]);
