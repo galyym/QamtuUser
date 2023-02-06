@@ -48,9 +48,4 @@ class EcpService
 
         return response($user_data);
     }
-
-    protected function checkEcp($data){
-        $request = Http::post(config("auth.pki_url"), $data);
-        return $request->json();
-    }
 }
