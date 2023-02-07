@@ -19,6 +19,11 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    public function findForPassport($username)
+    {
+        return $this->where('iin', $username)->first();
+    }
+
     /**
      * The attributes that are mass assignable.
      *
@@ -50,7 +55,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    protected $table = "applicant";
+    protected $table = "applicant_new";
+
 
 //    public function getNameAttribute()
 //    {
