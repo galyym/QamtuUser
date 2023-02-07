@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use App\Http\Responders\Responder;
+use Illuminate\Support\Facades\Hash;
 
 class AuthService
 {
@@ -31,7 +32,7 @@ class AuthService
                 'client_id'     => intval($client->id),
                 'client_secret' => (string)$client->secret,
                 'username'      => (string)$user->iin,
-                'password'      => '123'
+                'password'      =>  "123"
             ]
         ]);
 
