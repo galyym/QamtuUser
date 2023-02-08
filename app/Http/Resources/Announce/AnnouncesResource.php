@@ -19,7 +19,7 @@ class AnnouncesResource extends JsonResource
             "id" => $this->id ?? null,
             "title" => $this->title ?? null,
             "anons" => $this->anons ?? null,
-            "image" => "https://7kun.kz/wp-content/uploads/2019/06/arktika_neft__vid219217e.jpg" ?? null,
+            "image" => "https://portal.qamtu.kz/api/public".$this->image ?? null,
             "created_at" => Carbon::parse($this->created_at)->toDateString() ?? null
         ];
     }
