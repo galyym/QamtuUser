@@ -33,7 +33,7 @@ class ProfileService
             "position" => $positions["name_kk"],
             "family_status" => "белгісіз",
             "privilege" => $profile["privilege"]["name_kk"],
-            "image_url" => storage_path('/app/image/profile/default.png')
+            "image_url" => config("auth.app_url")."/image/profile/default.png"
         ];
 
 //        return $this->response->success('Profile', ApplicantResource::collection($profile));
