@@ -33,7 +33,7 @@ class ProfileService
             "position" => $positions["name_kk"],
             "family_status" => "белгісіз",
             "privilege" => $profile["privilege"]["name_kk"],
-            "image_url" => 'https://abrakadabra.fun/uploads/posts/2021-12/1640528638_13-abrakadabra-fun-p-serii-chelovek-na-avu-15.jpg'
+            "image_url" => storage_path('/app/image/profile/default.png')
         ];
 
 //        return $this->response->success('Profile', ApplicantResource::collection($profile));
