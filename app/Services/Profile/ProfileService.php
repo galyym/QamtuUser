@@ -6,6 +6,7 @@ use App\Http\Resources\User\ApplicantResource;
 use App\Http\Responders\Responder;
 use App\Models\Reference\RbPosition;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class ProfileService
 {
@@ -24,12 +25,14 @@ class ProfileService
         $positionIds = explode('@', $user->positions);
         $positions = RbPosition::whereIn('id', $positionIds)->first()->toArray();
 
+        $birthdate = Carbon::parse($user->birthdate);
+
         $data = [
             "full_name" => $profile["full_name"],
             "email" => $profile["email"],
             "phone_number" => $profile["phone_number"],
             "birthdate" => $profile["birthdate"],
-            "age" => 45,
+            "age" => $birthdate->diffInYears(Carbon::now()),
             "position" => $positions["name_kk"],
             "family_status" => "белгісіз",
             "privilege" => $profile["privilege"]["name_kk"],
