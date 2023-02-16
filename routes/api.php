@@ -58,7 +58,8 @@ Route::middleware("json.response")->group(function (){
             Route::get("notification", [NotificationController::class, "getNotification"]);
             Route::post("notification", [NotificationController::class, "setNotification"]);
 
-
+            // Отправить заявку на центр занятости
+            Route::post('send/applicant/center', []);
         });
 
         // Test

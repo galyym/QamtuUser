@@ -34,7 +34,7 @@ class ProfileService
             "birthdate" => $profile["birthdate"],
             "age" => $birthdate->diffInYears(Carbon::now()),
             "position" => $profile["positions_string"],
-            "family_status" => "белгісіз",
+            "family_status" => "ақпарат жоқ",
             "privilege" => $profile["privilege"]["name_kk"],
             "image_url" => config("auth.app_url")."/image/profile/default.png"
         ];
