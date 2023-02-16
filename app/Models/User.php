@@ -55,7 +55,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    protected $table = "applicant";
+    protected $table = "applicant_new";
 
     public function status(){
         return $this->belongsTo(RbStatus::class, 'status_id');

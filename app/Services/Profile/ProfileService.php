@@ -23,7 +23,7 @@ class ProfileService
             ->toArray();
 
         $positionIds = explode('@', $user->positions);
-        $positions = RbPosition::whereIn('id', $positionIds)->first()->toArray();
+        $positions = RbPosition::whereIn('id', $positionIds)->first();
 
         $birthdate = Carbon::parse($user->birthdate);
 
@@ -33,7 +33,7 @@ class ProfileService
             "phone_number" => $profile["phone_number"],
             "birthdate" => $profile["birthdate"],
             "age" => $birthdate->diffInYears(Carbon::now()),
-            "position" => $positions["name_kk"],
+            "position" => $profile["positions_string"],
             "family_status" => "белгісіз",
             "privilege" => $profile["privilege"]["name_kk"],
             "image_url" => config("auth.app_url")."/image/profile/default.png"
