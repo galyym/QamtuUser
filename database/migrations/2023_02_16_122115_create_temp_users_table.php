@@ -47,7 +47,7 @@ class CreateTempUsersTable extends Migration
             $table->tinyInteger('education_type')->nullable()->comment(' ');
             $table->string('education_org', 255)->nullable()->comment(' ');
             $table->string('education_year_finish', 255)->nullable()->comment('до **** года');
-            $table->tinyInteger('request_status')->nullable()->comment('Статус заявления. 1-заявка не отправлена, 2-заявка на рассмотрения, 3-заявка отказано, 4-заявка принято');
+            $table->tinyInteger('request_status_id')->nullable()->default(1)->comment('Статус заявления. 1-заявка не отправлена, 2-заявка на рассмотрения, 3-заявка отказано, 4-заявка принято');
         });
         DB::statement('ALTER TABLE temp_users MODIFY iin BIGINT(12) UNSIGNED ZEROFILL NOT NULL DEFAULT 000000000000');
     }

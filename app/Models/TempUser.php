@@ -50,6 +50,7 @@ class TempUser extends Authenticatable
         'education_type',
         'education_org',
         'education_year_finish',
+        'request_status_id'
     ];
 
     /**

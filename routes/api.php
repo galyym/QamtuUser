@@ -72,14 +72,4 @@ Route::middleware("json.response")->group(function (){
         // Applicant list without filter
         Route::get('user/list/without/status', [UserController::class, 'getUserList']);
     });
-
-    Route::get('config', function (){
-
-        return (Config::get('auth.guards.api.provider'));
-    });
-    Route::get('config/set', function (){
-        Config::set('auth.guards.api.provider', 'temp_users');
-        $request = Http::get('http://localhost/QamtuUser/public/api/config');
-        dd($request->body());
-    });
 });

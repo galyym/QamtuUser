@@ -42,29 +42,25 @@ class EcpService
             } else {
 
                 $user = TempUser::where('iin', $user_data['iin'])->first();
-                if ($user){
-                    $token = $this->service->token($user, true);
-                    $token += ['status' => 3];
-                    return $token;
-                } else {
+
+                if (!$user) {
                     $user = TempUser::updateOrCreate([
                         'full_name' => $user_data['full_name'],
                         'iin' => $user_data['iin'],
                         'email' => $user_data['email'],
-                        'birthdate' => $user_data['birthdate'],
-                        'request_status' => 1
+                        'birthdate' => $user_data['birthdate']
                     ]);
-
-                    $token = $this->service->token($user, true);
-                    $token += ['status' => 2];
-                    return $token;
                 }
+                $token = $this->service->token($user, true);
+                if ($user->request_status_id == 1 || $user->request_status_id == '1') {
+                    $token += ['status' => 2];
+                }else{
+                    $token += ['status' => 3];
+                }
+
+                return $token;
             }
         }
         return response($user_data);
-    }
-
-    public function addTempUser($request){
-
     }
 }
