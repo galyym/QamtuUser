@@ -6,6 +6,7 @@ use App\Http\Responders\Responder;
 use App\Models\Document;
 use App\Models\Reference\RbPosition;
 use App\Models\Reference\RbPrivilege;
+use App\Models\TempUser;
 use Carbon\Carbon;
 
 class TempUserService
@@ -43,9 +44,32 @@ class TempUserService
         $documents = Document::updateOrCreate($files);
 
         // обновляем данные пользователя
+        $update_temp_user = TempUser::updateOrCreate([
+            "full_name" => array_key_exists("name", $request) && array_key_exists("last_name", $request) ? $request['last_name']." ".$request['name'] : null,
+            "email" => array_key_exists("email", $request) ? $request['email'] : null,
+            "birthdate" => array_key_exists("birthdate", $request) ? $request['birthdate'] : "1900-01-01",
+            "document_type" => $request['document_type'],
+            "document_number" => $request['document_number'],
+            "document_exp" => $request['document_exp'],
+            "document_issued" => $request['document_issued'],
+            "family_status" => $request['family_status'],
+            "address" => $request['address'],
+            "address_reg" => $request['address_reg'],
+            "education_type" => $request['education_type'],
+            "education_org" => $request['education_org'],
+            "education_year_finish" => $request['education_year_finish'],
+            "privilege_id" => $request['privilege_id'],
+            "positions" => $request['positions'],
+            "status_id" => $request['status_id'],
+        ]);
 
-
-        return $this->response->success("success", $documents);
+        if ($update_temp_user) {
+            return $this->response->success("success", [
+                "document" => $documents,
+                "temp_users" => $user
+            ]);
+        }
+        return $this->response->error("error");
     }
 
 }
