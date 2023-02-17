@@ -60,6 +60,9 @@ Route::middleware("json.response")->group(function (){
             Route::get("notification", [NotificationController::class, "getNotification"]);
             Route::post("notification", [NotificationController::class, "setNotification"]);
 
+        });
+
+        Route::middleware("auth:temp_users")->group(function() {
             // Отправить заявку на центр занятости
             Route::get('send/application/center', [TempUserController::class, 'getInfoAppliction']);
             Route::post('send/application/center', [TempUserController::class, 'sendAppliction']);

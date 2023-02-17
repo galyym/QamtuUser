@@ -21,6 +21,7 @@ class TempUserController extends Controller
     }
 
     public function sendAppliction(TempUserRequest $request){
-        return $this->service->sendAppliction($request->validated());
+        $user = auth()->user();
+        return $this->service->sendAppliction($request->validated(), $user);
     }
 }

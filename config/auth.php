@@ -44,7 +44,7 @@ return [
             'driver' => 'passport',
             'provider' => 'users',
         ],
-        'temp_user' => [
+        'temp_users' => [
             'driver' => 'passport',
             'provider' => 'temp_users'
         ],

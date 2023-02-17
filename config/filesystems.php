@@ -53,6 +53,12 @@ return [
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
         ],
 
+        'ftp' => [
+            'driver'   => env('QAMTU_CLOUD_DRIVER'),
+            'host'     => env('QAMTU_CLOUD_HOST'),
+            'username' => env('QAMTU_CLOUD_USERNAME'),
+            'password' => env('QAMTU_CLOUD_PASSWORD'),
+        ]
 
     ],
 
