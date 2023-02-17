@@ -4,6 +4,7 @@ namespace App\Services\Auth;
 
 use App\Models\TempUser;
 use App\Models\User;
+use Carbon\Carbon;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Facades\Http;
 use App\Http\Responders\Responder;
@@ -48,16 +49,18 @@ class EcpService
                         'full_name' => $user_data['full_name'],
                         'iin' => $user_data['iin'],
                         'email' => $user_data['email'],
-                        'birthdate' => $user_data['birthdate']
+                        'birthdate' => $user_data['birthdate'],
+                        'last_visit' => Carbon::now()->format('Y-m-d H:i:s'),
+                        'request_status_id' => 1
                     ]);
                 }
+
                 $token = $this->service->token($user, true);
                 if ($user->request_status_id == 1 || $user->request_status_id == '1') {
                     $token += ['status' => 2];
                 }else{
                     $token += ['status' => 3];
                 }
-
                 return $token;
             }
         }

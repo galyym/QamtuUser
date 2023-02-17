@@ -26,13 +26,14 @@ class TempUserService
             "privilege" => RbPrivilege::get()->toArray(),
             "position" => RbPosition::all()->toArray()
         ];
-        return $this->response->success("success", $user_info);
+
+        if ($user_info) return $this->response->success("Мәлімет сәтті жіберілді", $user_info);
+        return $this->response->error("Белгісіз қателіктер");
     }
 
     public function sendAppliction($request, $user){
 
         // добавляем документы пользователя
-        $files = [];
         $files["temp_user_id"] = $user['id'];
         $files['resume'] = $request['resume']->store('resume/'.Carbon::now()->format('Y')."/".Carbon::now()->format('m')."/".Carbon::now()->format('d'), 'ftp');
         $files['pension_application'] = $request['pension_application']->store('pension_application/'.Carbon::now()->format('Y')."/".Carbon::now()->format('m')."/".Carbon::now()->format('d'), 'ftp');
@@ -41,35 +42,41 @@ class TempUserService
         $files['probation_certificate'] = array_key_exists('probation_certificate', $request) ? $request['probation_certificate']->store('probation_certificate/'.Carbon::now()->format('Y')."/".Carbon::now()->format('m')."/".Carbon::now()->format('d'), 'ftp') : null;
         $files['verdict_court'] = array_key_exists('verdict_court', $request) ? $request['verdict_court']->store('verdict_court/'.Carbon::now()->format('Y')."/".Carbon::now()->format('m')."/".Carbon::now()->format('d'), 'ftp') : null;
 
-        $documents = Document::updateOrCreate($files);
+        $documents = Document::upsert($files, ['user_id', 'temp_user_id']);
 
         // обновляем данные пользователя
-        $update_temp_user = TempUser::updateOrCreate([
-            "full_name" => array_key_exists("name", $request) && array_key_exists("last_name", $request) ? $request['last_name']." ".$request['name'] : null,
-            "email" => array_key_exists("email", $request) ? $request['email'] : null,
-            "birthdate" => array_key_exists("birthdate", $request) ? $request['birthdate'] : "1900-01-01",
-            "document_type" => $request['document_type'],
-            "document_number" => $request['document_number'],
-            "document_exp" => $request['document_exp'],
-            "document_issued" => $request['document_issued'],
-            "family_status" => $request['family_status'],
-            "address" => $request['address'],
-            "address_reg" => $request['address_reg'],
-            "education_type" => $request['education_type'],
-            "education_org" => $request['education_org'],
-            "education_year_finish" => $request['education_year_finish'],
-            "privilege_id" => $request['privilege_id'],
-            "positions" => $request['positions'],
-            "status_id" => $request['status_id'],
-        ]);
+        $update_temp_user = TempUser::updateOrCreate(
+            [
+                'id' => $user->id
+            ],
+            [
+                "full_name" => array_key_exists("name", $request) && array_key_exists("last_name", $request) ? $request['last_name']." ".$request['name'] : $user->full_name,
+                "email" => array_key_exists("email", $request) ? $request['email'] : $user->email,
+                "birthdate" => array_key_exists("birthdate", $request) ? $request['birthdate'] : $user->birthdate,
+                "phone_number" => $request["phone_number"],
+                "document_type" => $request['document_type'],
+                "document_number" => $request['document_number'],
+                "document_exp" => $request['document_exp'],
+                "document_issued" => $request['document_issued'],
+                "family_status" => $request['family_status'],
+                "address" => $request['address'],
+                "address_reg" => $request['address_reg'],
+                "education_type" => $request['education_type'],
+                "education_org" => $request['education_org'],
+                "education_year_finish" => $request['education_year_finish'],
+                "privilege_id" => $request['privilege_id'],
+                "positions" => $request['positions'],
+                "status_id" => $request['status_id'],
+                "last_visit" => Carbon::now()->format('Y-m-d H:i:s'),
+            ]);
 
         if ($update_temp_user) {
-            return $this->response->success("success", [
+            return $this->response->success("Сәтті өңделді", [
                 "document" => $documents,
-                "temp_users" => $user
+                "temp_users" => $update_temp_user
             ]);
         }
-        return $this->response->error("error");
+        return $this->response->error("Белгісіз қателіктер");
     }
 
 }

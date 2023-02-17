@@ -28,6 +28,7 @@ class TempUserRequest extends FormRequest
             "last_name" => "nullable|max:255",
             "email" => "email|nullable",
             "birthdate" => "date|nullable",
+            "phone_number" => "required|string|max:25",
             //-------Документ --------------
             "document_type" => "required|max:255",
             "document_number" => "required|max:255",
