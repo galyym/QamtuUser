@@ -68,6 +68,7 @@ class TempUserService
                 "positions" => $request['positions'],
                 "status_id" => $request['status_id'],
                 "last_visit" => Carbon::now()->format('Y-m-d H:i:s'),
+                "request_status_id" => 2
             ]);
 
         if ($update_temp_user) {
