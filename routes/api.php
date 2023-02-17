@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TempUser\TempUserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\EmailController;
 use App\Http\Controllers\Auth\PhoneController;
@@ -60,7 +61,8 @@ Route::middleware("json.response")->group(function (){
             Route::post("notification", [NotificationController::class, "setNotification"]);
 
             // Отправить заявку на центр занятости
-            Route::post('send/applicant/center', []);
+            Route::get('send/application/center', [TempUserController::class, 'getInfoAppliction']);
+            Route::post('send/application/center', [TempUserController::class, 'sendAppliction']);
         });
 
         // Test
