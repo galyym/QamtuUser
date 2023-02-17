@@ -2,20 +2,16 @@
 
 namespace App\Models;
 
-use App\Models\Reference\RbPosition;
-use App\Models\Reference\RbPrivilege;
-use App\Models\Reference\RbStatus;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+
 
 /**
- * @mixin Builder
+ * @mixin \Illuminate\Database\Eloquent\Builder
  */
-class User extends Authenticatable
+class TempUser extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -24,11 +20,6 @@ class User extends Authenticatable
         return $this->where('iin', $username)->first();
     }
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'raiting_number',
         'raiting_privilege_number',
@@ -79,19 +70,4 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    protected $table = "applicant";
-
-    public function status(){
-        return $this->belongsTo(RbStatus::class, 'status_id');
-    }
-
-    public function privilege(){
-        return $this->belongsTo(RbPrivilege::class, 'privilege_id');
-    }
-
-    public function position()
-    {
-        return $this->belongsToMany(RbPosition::class, 'privilege_id');
-    }
 }

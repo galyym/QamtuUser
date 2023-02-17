@@ -44,6 +44,10 @@ return [
             'driver' => 'passport',
             'provider' => 'users',
         ],
+        'temp_user' => [
+            'driver' => 'passport',
+            'provider' => 'temp_users'
+        ],
     ],
 
     /*
@@ -69,10 +73,10 @@ return [
             'model' => App\Models\User::class,
         ],
 
-//         'users' => [
-//             'driver' => 'database',
-//             'table' => 'applicant',
-//         ],
+         'temp_users' => [
+             'driver' => 'eloquent',
+             'model' => App\Models\TempUser::class,
+         ],
     ],
 
     /*
@@ -97,6 +101,13 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
+
+        'temp_users' => [
+            'provider' => 'temp_users',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ]
     ],
 
     /*

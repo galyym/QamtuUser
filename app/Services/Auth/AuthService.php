@@ -21,11 +21,14 @@ class AuthService
     /**
      * @throws GuzzleException
      */
-    public function token($user){
+    public function token($user, $temp_user = false){
 
+        $client_id = 2;
+        if ($temp_user){
+            $client_id = 4;
+        }
+        $client = DB::table('oauth_clients')->select('id', 'secret')->where('id', '=', $client_id)->first();
         $http = new Client();
-        $client = DB::table('oauth_clients')->select('id', 'secret')->where('id', '=', 2)->first();
-
         $response = $http->post(config("auth.app_url").'/oauth/token', [
             'form_params' => [
                 'grant_type'    => 'password',

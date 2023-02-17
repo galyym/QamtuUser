@@ -2,7 +2,9 @@
 
 namespace App\Services\Auth;
 
+use App\Models\TempUser;
 use App\Models\User;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Facades\Http;
 use App\Http\Responders\Responder;
 use App\Helper\Pki;
@@ -20,22 +22,49 @@ class EcpService
         $this->pki = $pki;
     }
 
+    /**
+     * @throws GuzzleException
+     */
     public function authEcp($request){
 
-        $base64 = $request->base64;
-        $password = $request->password;
+        $base64 = $request['base64'];
+        $password = $request['password'];
 
         $user_data = $this->pki->getCertificateInfo($base64, $password, true);
 
         if ($user_data) {
-
             $user = User::where("iin", $user_data["iin"])->first();
 
             if ($user) {
-                return $this->service->token($user);
+                $token = $this->service->token($user);
+                $token += ['status' => 1];
+                return $token;
+            } else {
+
+                $user = TempUser::where('iin', $user_data['iin'])->first();
+                if ($user){
+                    $token = $this->service->token($user, true);
+                    $token += ['status' => 3];
+                    return $token;
+                } else {
+                    $user = TempUser::updateOrCreate([
+                        'full_name' => $user_data['full_name'],
+                        'iin' => $user_data['iin'],
+                        'email' => $user_data['email'],
+                        'birthdate' => $user_data['birthdate'],
+                        'request_status' => 1
+                    ]);
+
+                    $token = $this->service->token($user, true);
+                    $token += ['status' => 2];
+                    return $token;
+                }
             }
-            return $this->response->error("Қолданушы табылмады");
         }
         return response($user_data);
+    }
+
+    public function addTempUser($request){
+
     }
 }
