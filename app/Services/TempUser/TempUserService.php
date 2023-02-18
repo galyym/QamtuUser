@@ -4,6 +4,8 @@ namespace App\Services\TempUser;
 
 use App\Http\Responders\Responder;
 use App\Models\Document;
+use App\Models\RbEducationType;
+use App\Models\RbFamilyStatus;
 use App\Models\Reference\RbPosition;
 use App\Models\Reference\RbPrivilege;
 use App\Models\TempUser;
@@ -24,7 +26,9 @@ class TempUserService
             "iin" => $user['iin'],
             "birthdate" => $user['birthdate'],
             "privilege" => RbPrivilege::get()->toArray(),
-            "position" => RbPosition::all()->toArray()
+            "position" => RbPosition::all()->toArray(),
+            "education_type" => RbEducationType::all()->toArray(),
+            "family_status" => RbFamilyStatus::all()->toArray()
         ];
 
         if ($user_info) return $this->response->success("Мәлімет сәтті жіберілді", $user_info);
