@@ -47,12 +47,18 @@ class TempUserRequest extends FormRequest
             "positions" => "required|max:255",
             "status_id" => "required|numeric|min:1|max:5",
             //-------Files------------------
-            "resume" => "required|mimes:pdf,docx,doc", // Резюме
-            "pension_application" => "required|mimes:pdf,docx,doc", // Пенсионное выписка
-            "certificate_of_disability" => "mimes:pdf,docx,doc", // Справка инвалидности
-            "death_certificate" => "mimes:pdf,docx,doc", // Свидетельство о смерти
-            "probation_certificate" => "mimes:pdf,docx,doc", // Справка о наличии на учете пробации
-            "verdict_court" => "mimes:pdf,docx,doc", // Приговор суда
+            "resume" => "required", // Резюме
+            "pension_application" => "required", // Пенсионное выписка
+            "certificate_of_disability" => "", // Справка инвалидности
+            "death_certificate" => "", // Свидетельство о смерти
+            "probation_certificate" => "", // Справка о наличии на учете пробации
+            "verdict_court" => "", // Приговор суда
+//            "resume" => "required|mimes:pdf,docx,doc", // Резюме
+//            "pension_application" => "required|mimes:pdf,docx,doc", // Пенсионное выписка
+//            "certificate_of_disability" => "mimes:pdf,docx,doc", // Справка инвалидности
+//            "death_certificate" => "mimes:pdf,docx,doc", // Свидетельство о смерти
+//            "probation_certificate" => "mimes:pdf,docx,doc", // Справка о наличии на учете пробации
+//            "verdict_court" => "mimes:pdf,docx,doc", // Приговор суда
         ];
     }
 }

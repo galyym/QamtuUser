@@ -36,7 +36,6 @@ class TempUserService
     }
 
     public function sendAppliction($request, $user){
-
         // добавляем документы пользователя
         $files["temp_user_id"] = $user['id'];
         $files['resume'] = $request['resume']->store('resume/'.Carbon::now()->format('Y')."/".Carbon::now()->format('m')."/".Carbon::now()->format('d'), 'ftp');
