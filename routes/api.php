@@ -19,7 +19,7 @@ Route::get("git/update", function (){
 
 
 
-Route::middleware("json.response")->group(function (){
+//Route::middleware("json.response")->group(function (){
     Route::group(['prefix' => '{lang?}', 'where' => ['lang' => 'kk|ru']], function (){
 
         Route::post("login/email", [EmailController::class, "login"]);
@@ -77,4 +77,4 @@ Route::middleware("json.response")->group(function (){
         // Applicant list without filter
         Route::get('user/list/without/status', [UserController::class, 'getUserList']);
     });
-});
+//});

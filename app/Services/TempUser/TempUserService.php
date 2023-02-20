@@ -45,7 +45,15 @@ class TempUserService
         $files['probation_certificate'] = array_key_exists('probation_certificate', $request) ? $request['probation_certificate']->store('probation_certificate/'.Carbon::now()->format('Y')."/".Carbon::now()->format('m')."/".Carbon::now()->format('d'), 'ftp') : null;
         $files['verdict_court'] = array_key_exists('verdict_court', $request) ? $request['verdict_court']->store('verdict_court/'.Carbon::now()->format('Y')."/".Carbon::now()->format('m')."/".Carbon::now()->format('d'), 'ftp') : null;
 
-        $documents = Document::upsert($files, ['user_id', 'temp_user_id']);
+        $documents = Document::upsert([
+            'temp_user_id' => $files["temp_user_id"],
+            'resume' => "https://cloud.qamtu.kz/e.qamtu.kz/tobirama/".$files['resume'],
+            'pension_application' => "https://cloud.qamtu.kz/e.qamtu.k".$files['pension_application'],
+            'certificate_of_disability' => "https://cloud.qamtu.kz/e.qamtu.k".$files['certificate_of_disability'],
+            'death_certificate' => "https://cloud.qamtu.kz/e.qamtu.k".$files['death_certificate'],
+            'probation_certificate' => "https://cloud.qamtu.kz/e.qamtu.k".$files['probation_certificate'],
+            'verdict_court' => "https://cloud.qamtu.kz/e.qamtu.k".$files['verdict_court']
+        ], ['user_id', 'temp_user_id']);
 
         // обновляем данные пользователя
         $update_temp_user = TempUser::updateOrCreate(
