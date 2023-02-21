@@ -38,12 +38,12 @@ class TempUserService
     public function sendAppliction($request, $user){
         // добавляем документы пользователя
         $files["temp_user_id"] = $user['id'];
-        $files['resume'] = $request['resume']->store('resume/'.Carbon::now()->format('Y')."/".Carbon::now()->format('m')."/".Carbon::now()->format('d'), 'ftp');
-        $files['pension_application'] = $request['pension_application']->store('pension_application/'.Carbon::now()->format('Y')."/".Carbon::now()->format('m')."/".Carbon::now()->format('d'), 'ftp');
-        $files['certificate_of_disability'] = array_key_exists('certificate_of_disability', $request) ? $request['certificate_of_disability']->store('certificate_of_disability/'.Carbon::now()->format('Y')."/".Carbon::now()->format('m')."/".Carbon::now()->format('d'), 'ftp') : null;
-        $files['death_certificate'] = array_key_exists('death_certificate', $request) ? $request['death_certificate']->store('death_certificate/'.Carbon::now()->format('Y')."/".Carbon::now()->format('m')."/".Carbon::now()->format('d'), 'ftp') : null;
-        $files['probation_certificate'] = array_key_exists('probation_certificate', $request) ? $request['probation_certificate']->store('probation_certificate/'.Carbon::now()->format('Y')."/".Carbon::now()->format('m')."/".Carbon::now()->format('d'), 'ftp') : null;
-        $files['verdict_court'] = array_key_exists('verdict_court', $request) ? $request['verdict_court']->store('verdict_court/'.Carbon::now()->format('Y')."/".Carbon::now()->format('m')."/".Carbon::now()->format('d'), 'ftp') : null;
+        $files['resume'] = $request['resume']->store('resume/'.$user->iin, 'ftp');
+        $files['pension_application'] = $request['pension_application']->store('pension_application/'.$user->iin, 'ftp');
+        $files['certificate_of_disability'] = array_key_exists('certificate_of_disability', $request) ? $request['certificate_of_disability']->store('certificate_of_disability/'.$user->iin, 'ftp') : null;
+        $files['death_certificate'] = array_key_exists('death_certificate', $request) ? $request['death_certificate']->store('death_certificate/'.$user->iin, 'ftp') : null;
+        $files['probation_certificate'] = array_key_exists('probation_certificate', $request) ? $request['probation_certificate']->store('probation_certificate/'.$user->iin, 'ftp') : null;
+        $files['verdict_court'] = array_key_exists('verdict_court', $request) ? $request['verdict_court']->store('verdict_court/'.$user->iin, 'ftp') : null;
 
         $documents = Document::updateOrCreate(
             [
@@ -52,11 +52,11 @@ class TempUserService
             [
                 'temp_user_id' => $files["temp_user_id"],
                 'resume' => "https://cloud.qamtu.kz/e.qamtu.kz/tobirama/".$files['resume'],
-                'pension_application' => !empty($files["pension_application"]) ? "https://cloud.qamtu.kz/e.qamtu.k".$files['pension_application'] : null,
-                'certificate_of_disability' => !empty($files['certificate_of_disability']) ? "https://cloud.qamtu.kz/e.qamtu.k".$files['certificate_of_disability'] : null,
-                'death_certificate' => !empty($files['death_certificate']) ? "https://cloud.qamtu.kz/e.qamtu.k".$files['death_certificate'] : null,
-                'probation_certificate' => !empty($files['probation_certificate']) ? "https://cloud.qamtu.kz/e.qamtu.k".$files['probation_certificate'] : null,
-                'verdict_court' => !empty($files['verdict_court']) ? "https://cloud.qamtu.kz/e.qamtu.k".$files['verdict_court'] : null
+                'pension_application' => !empty($files["pension_application"]) ? "https://cloud.qamtu.kz/e.qamtu.kz/tobirama/".$files['pension_application'] : null,
+                'certificate_of_disability' => !empty($files['certificate_of_disability']) ? "https://cloud.qamtu.kz/e.qamtu.kz/tobirama/".$files['certificate_of_disability'] : null,
+                'death_certificate' => !empty($files['death_certificate']) ? "https://cloud.qamtu.kz/e.qamtu.kz/tobirama/".$files['death_certificate'] : null,
+                'probation_certificate' => !empty($files['probation_certificate']) ? "https://cloud.qamtu.kz/e.qamtu.kz/tobirama/".$files['probation_certificate'] : null,
+                'verdict_court' => !empty($files['verdict_court']) ? "https://cloud.qamtu.kz/e.qamtu.kz/tobirama/".$files['verdict_court'] : null
             ]);
 
         if(array_key_exists("name", $request) && array_key_exists("last_name", $request) && array_key_exists("patronymic", $request)){
