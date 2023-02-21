@@ -82,7 +82,7 @@ class TempUserService
                 "document_exp" => $request['document_exp'],
                 "document_issued" => $request['document_issued'],
                 "family_status" => $request['family_status'],
-                "childs" => $request['childs'],
+                "childs" => array_key_exists('childs', $request) ? $request['childs'] : null,
                 "address" => $request['address'],
                 "address_reg" => $request['address_reg'],
                 "education_type" => $request['education_type'],
