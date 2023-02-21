@@ -34,7 +34,15 @@ class AddInfoToApplicantTable extends Migration
     public function down()
     {
         Schema::table('applicant', function (Blueprint $table) {
-            //
+            $table->dropColumn('family_status');
+            $table->dropColumn('document_type');
+            $table->dropColumn('document_number');
+            $table->dropColumn('document_exp');
+            $table->dropColumn('document_issued');
+            $table->dropColumn('address_reg');
+            $table->dropColumn('education_type');
+            $table->dropColumn('education_org');
+            $table->dropColumn('education_year_finish');
         });
     }
 }

@@ -45,15 +45,27 @@ class TempUserService
         $files['probation_certificate'] = array_key_exists('probation_certificate', $request) ? $request['probation_certificate']->store('probation_certificate/'.Carbon::now()->format('Y')."/".Carbon::now()->format('m')."/".Carbon::now()->format('d'), 'ftp') : null;
         $files['verdict_court'] = array_key_exists('verdict_court', $request) ? $request['verdict_court']->store('verdict_court/'.Carbon::now()->format('Y')."/".Carbon::now()->format('m')."/".Carbon::now()->format('d'), 'ftp') : null;
 
-        $documents = Document::upsert([
-            'temp_user_id' => $files["temp_user_id"],
-            'resume' => "https://cloud.qamtu.kz/e.qamtu.kz/tobirama/".$files['resume'],
-            'pension_application' => "https://cloud.qamtu.kz/e.qamtu.k".$files['pension_application'],
-            'certificate_of_disability' => "https://cloud.qamtu.kz/e.qamtu.k".$files['certificate_of_disability'],
-            'death_certificate' => "https://cloud.qamtu.kz/e.qamtu.k".$files['death_certificate'],
-            'probation_certificate' => "https://cloud.qamtu.kz/e.qamtu.k".$files['probation_certificate'],
-            'verdict_court' => "https://cloud.qamtu.kz/e.qamtu.k".$files['verdict_court']
-        ], ['user_id', 'temp_user_id']);
+        $documents = Document::updateOrCreate(
+            [
+                'temp_user_id' => $user['id']
+            ],
+            [
+                'temp_user_id' => $files["temp_user_id"],
+                'resume' => "https://cloud.qamtu.kz/e.qamtu.kz/tobirama/".$files['resume'],
+                'pension_application' => !empty($files["pension_application"]) ? "https://cloud.qamtu.kz/e.qamtu.k".$files['pension_application'] : null,
+                'certificate_of_disability' => !empty($files['certificate_of_disability']) ? "https://cloud.qamtu.kz/e.qamtu.k".$files['certificate_of_disability'] : null,
+                'death_certificate' => !empty($files['death_certificate']) ? "https://cloud.qamtu.kz/e.qamtu.k".$files['death_certificate'] : null,
+                'probation_certificate' => !empty($files['probation_certificate']) ? "https://cloud.qamtu.kz/e.qamtu.k".$files['probation_certificate'] : null,
+                'verdict_court' => !empty($files['verdict_court']) ? "https://cloud.qamtu.kz/e.qamtu.k".$files['verdict_court'] : null
+            ]);
+
+        if(array_key_exists("name", $request) && array_key_exists("last_name", $request) && array_key_exists("patronymic", $request)){
+            $full_name = $request['last_name']." ".$request['name']." ".$request["patronymic"];
+        } elseif (array_key_exists("name", $request) && array_key_exists("last_name", $request)) {
+            $full_name = $request['last_name']." ".$request['name'];
+        } else {
+            $full_name = $user->full_name;
+        }
 
         // обновляем данные пользователя
         $update_temp_user = TempUser::updateOrCreate(
@@ -61,7 +73,7 @@ class TempUserService
                 'id' => $user->id
             ],
             [
-                "full_name" => array_key_exists("name", $request) && array_key_exists("last_name", $request) ? $request['last_name']." ".$request['name'] : $user->full_name,
+                "full_name" => $full_name,
                 "email" => array_key_exists("email", $request) ? $request['email'] : $user->email,
                 "birthdate" => array_key_exists("birthdate", $request) ? $request['birthdate'] : $user->birthdate,
                 "phone_number" => $request["phone_number"],
@@ -70,6 +82,7 @@ class TempUserService
                 "document_exp" => $request['document_exp'],
                 "document_issued" => $request['document_issued'],
                 "family_status" => $request['family_status'],
+                "childs" => $request['childs'],
                 "address" => $request['address'],
                 "address_reg" => $request['address_reg'],
                 "education_type" => $request['education_type'],
@@ -79,7 +92,8 @@ class TempUserService
                 "positions" => $request['positions'],
                 "status_id" => $request['status_id'],
                 "last_visit" => Carbon::now()->format('Y-m-d H:i:s'),
-                "request_status_id" => 2
+                "request_status_id" => 2,
+                "document_id" => $documents->id ?? null,
             ]);
 
         if ($update_temp_user) {
