@@ -37,7 +37,7 @@ class TempUserRequest extends FormRequest
             "document_issued" => "required|max:255",
             //-------------------------------
             "family_status" => "required|max:255",
-            "childs" => "required|max:2",
+            "childs" => "nullable|max:2",
             "address" => "required|max:255",
             "address_reg" => "required|max:255",
             //--------Образования----------
