@@ -27,7 +27,7 @@ class AddChildsDocIdToTempUsers extends Migration
     public function down()
     {
         Schema::table('temp_users', function (Blueprint $table) {
-//            $table->dropColumn('childs');
+            $table->dropColumn('childs');
             $table->dropColumn('documant_id');
         });
     }
