@@ -89,7 +89,7 @@ class TempUserService
                 "education_org" => $request['education_org'],
                 "education_year_finish" => $request['education_year_finish'],
                 "privilege_id" => $request['privilege_id'],
-                "positions" => $request['positions'],
+                "positions" => "@". $request['positions']. "@",
                 "status_id" => $request['status_id'],
                 "last_visit" => Carbon::now()->format('Y-m-d H:i:s'),
                 "request_status_id" => 2,
