@@ -58,7 +58,7 @@ class EcpService
                 $token = $this->service->token($user, true);
                 if ($user->request_status_id == 1 || $user->request_status_id == '1') {
                     $token += ['status' => 2];
-                }else{
+                }elseif($user->request_status_id == 2 || $user->request_status_id == 4){
                     $token += ['status' => 3];
                 }
                 return $token;
