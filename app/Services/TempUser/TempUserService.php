@@ -25,7 +25,7 @@ class TempUserService
             "full_name" => $user['full_name'],
             "iin" => $user['iin'],
             "birthdate" => $user['birthdate'],
-            "privilege" => RbPrivilege::get()->toArray(),
+            "privilege" => RbPrivilege::where('id', '>', 1)->get()->toArray(),
             "position" => RbPosition::all()->toArray(),
             "education_type" => RbEducationType::all()->toArray(),
             "family_status" => RbFamilyStatus::all()->toArray()
