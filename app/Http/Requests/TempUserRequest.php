@@ -45,7 +45,7 @@ class TempUserRequest extends FormRequest
             "education_org" => "required|max:255",
             "education_year_finish" => "required|max:255",
             //----------------------------
-            "privilege_id" => "required|numeric|min:1|max:5",
+            "privilege_id" => "required|numeric|min:1|max:7",
             "positions" => "required|max:255",
             "status_id" => "required|numeric|min:1|max:5",
             //-------Files------------------
